@@ -3,7 +3,7 @@ import os
 import time
 from statistics import mean, stdev
 
-SERVER_ADDRESS = 'localhost'
+SERVER_ADDRESS = '192.168.1.40'
 SERVER_PORT = 8000
 FILE_NAMES = [('Data/A_10kB', 'Data/B_10kB'), ('Data/A_100kB', 'Data/B_100kB'), ('Data/A_1MB', 'Data/B_1MB'), ('Data/A_10MB', 'Data/B_10MB')]
 
@@ -38,6 +38,9 @@ for files in FILE_NAMES:
             file_size = len(file_content)
             file_sizes.append(file_size)
             total_data_transferred.append(file_size + len(response.headers))
+            print(len(response.headers))
+            print(file_size)
+            print((file_size + len(response.headers)) / file_size)
 
             print(f"File '{file_name}' downloaded successfully in {download_time:.6f} seconds.")
         else:
@@ -55,7 +58,7 @@ for files in FILE_NAMES:
 
     print(f"Average throughput for filesize {files[2:]}: {avg_throughput:.2f} kbps")
     print(f"Standard deviation of throughput for filesize {files[2:]}: {std_dev_throughput:.2f} kbps")
-    print(f"Average ratio of total data transferred to file size for filesize {files[2:]}: {avg_ratio:.2f}")
+    print(f"Average ratio of total data transferred to file size for filesize {files[2:]}: {avg_ratio:.6f}")
 
 # Close the connection
 client.close()
