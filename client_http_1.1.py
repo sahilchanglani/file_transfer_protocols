@@ -5,7 +5,7 @@ from statistics import mean, stdev
 
 SERVER_ADDRESS = 'localhost'
 SERVER_PORT = 8000
-FILE_NAMES = [('Data/A_10kB', 'Data/B_10kB'), 'Data/A_1MB', 'Data/A_10MB', 'Data/A_100kB']
+FILE_NAMES = [('Data/A_10kB', 'Data/B_10kB'), ('Data/A_100kB', 'Data/B_100kB'), ('Data/A_1MB', 'Data/B_1MB'), ('Data/A_10MB', 'Data/B_10MB')]
 
 
 for files in FILE_NAMES:
