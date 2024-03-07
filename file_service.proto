@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package filetransfer;
+
+service FileTransfer {
+  rpc DownloadFile (FileRequest) returns (FileResponse);
+}
+
+message FileRequest {
+  string file_path = 1;
+}
+
+message FileResponse {
+  bytes content = 1;
+}
