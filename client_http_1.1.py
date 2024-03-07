@@ -11,6 +11,7 @@ FILE_NAMES = [('Data/A_10kB', 'Data/B_10kB'), ('Data/A_100kB', 'Data/B_100kB'), 
 for files in FILE_NAMES:
     download_times = []
     file_sizes = []
+    total_data_transferred = []
     for file_name in files:
         # Prepare the request
         client = http.client.HTTPConnection(SERVER_ADDRESS, SERVER_PORT)
@@ -36,6 +37,7 @@ for files in FILE_NAMES:
             # Get the file size
             file_size = len(file_content)
             file_sizes.append(file_size)
+            total_data_transferred.append(file_size + len(response.headers))
 
             print(f"File '{file_name}' downloaded successfully in {download_time:.6f} seconds.")
         else:
@@ -48,9 +50,12 @@ for files in FILE_NAMES:
     # Calculate average throughput and standard deviation
     avg_throughput = mean(throughputs)
     std_dev_throughput = stdev(throughputs)
+    # Calculate average ratio of total data transferred to file size
+    avg_ratio = mean([data / size for data, size in zip(total_data_transferred, file_sizes)])
 
     print(f"Average throughput for filesize {files[2:]}: {avg_throughput:.2f} kbps")
     print(f"Standard deviation of throughput for filesize {files[2:]}: {std_dev_throughput:.2f} kbps")
+    print(f"Average ratio of total data transferred to file size for filesize {files[2:]}: {avg_ratio:.2f}")
 
 # Close the connection
 client.close()
